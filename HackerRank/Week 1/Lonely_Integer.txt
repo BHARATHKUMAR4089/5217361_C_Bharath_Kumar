@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function to find the lonely integer (only element without a pair)
+int lonelyinteger(int *a, int n) {
+    int un = 0;
+    for (int i = 0; i < n; i++) {
+        un ^= a[i]; // XOR cancels out numbers appearing twice
+    }
+    return un;
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    int *a = (int *)malloc(n * sizeof(int));
+    if (a == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return 1;
+    }
+
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &a[i]);
+    }
+
+    int result = lonelyinteger(a, n);
+    printf("%d\n", result);
+
+    free(a);
+    return 0;
+}

@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int diagonalDifference(int **arr, int n) {
+    int pd = 0; // primary diagonal sum
+    int sd = 0; // secondary diagonal sum
+    
+    for (int i = 0; i < n; i++) {
+        pd += arr[i][i];
+        sd += arr[i][n - 1 - i];
+    }
+    
+   
+    return abs(pd - sd);
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    int **arr = (int **)malloc(n * sizeof(int *));
+    for (int i = 0; i < n; i++) {
+        arr[i] = (int *)malloc(n * sizeof(int));
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+
+    int result = diagonalDifference(arr, n);
+    printf("%d\n", result);
+
+  
+    for (int i = 0; i < n; i++) {
+        free(arr[i]);
+    }
+    free(arr);
+
+    return 0;
+}

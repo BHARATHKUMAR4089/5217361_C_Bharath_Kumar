@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* timeConversion(const char *s) {
+    static char result[9]; // "HH:MM:SS" + null terminator
+
+    int h, m, ss;
+    char ampm[3]; // "AM" or "PM"
+  
+    sscanf(s, "%d:%d:%d%s", &h, &m, &ss, ampm);
+
+    if (strcmp(ampm, "AM") == 0) {
+        if (h == 12) {
+            h = 0; // midnight
+        }
+    } else { // PM
+        if (h != 12) {
+            h += 12;
+        }
+    }
+
+
+    snprintf(result, sizeof(result), "%02d:%02d:%02d", h, m, ss);
+
+    return result;
+}
+
+int main() {
+    char s[15]; 
+
+    scanf("%s", s);
+
+    char *res = timeConversion(s);
+    printf("%s\n", res);
+
+    return 0;
+}

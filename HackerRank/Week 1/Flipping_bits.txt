@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+
+unsigned long flippingBits(unsigned long n) {
+    // XOR with 0xFFFFFFFF to flip bits (unsigned 32-bit mask)
+    return n ^ 0xFFFFFFFFUL;
+}
+
+int main() {
+    int q;
+    scanf("%d", &q); 
+
+    for (int i = 0; i < q; i++) {
+        unsigned long n;
+        scanf("%lu", &n);
+        
+        unsigned long result = flippingBits(n);
+        printf("%lu\n", result);
+    }
+
+    return 0;
+}

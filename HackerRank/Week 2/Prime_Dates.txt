@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main() {
+    char s1[11], s2[11];
+    scanf("%10s %10s", s1, s2);
+
+    int d1, m1, y1, d2, m2, y2;
+    sscanf(s1, "%2d-%2d-%4d", &d1, &m1, &y1);
+    sscanf(s2, "%2d-%2d-%4d", &d2, &m2, &y2);
+
+    int count = 0;
+    int daysInMonth[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+
+    while (1) {
+        int dim = daysInMonth[m1];
+        if (m1 == 2 && ((y1 % 400 == 0) || (y1 % 4 == 0 && y1 % 100 != 0)))
+            dim = 29;
+
+        int x = (d1/10)*10000000 + (d1%10)*1000000
+              + (m1/10)*100000   + (m1%10)*10000
+              + y1;
+
+        if (x % 4 == 0 || x % 7 == 0) count++;
+
+
+        if (d1 == d2 && m1 == m2 && y1 == y2) break;
+
+ 
+        d1++;
+        if (d1 > dim) {
+            d1 = 1;
+            m1++;
+            if (m1 > 12) {
+                m1 = 1;
+                y1++;
+            }
+        }
+    }
+
+    printf("%d\n", count);
+    return 0;
+}

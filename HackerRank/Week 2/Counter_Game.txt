@@ -1,0 +1,27 @@
+char* counterGame(long n) {
+    static char winner[10];
+    int turns = 0;
+
+    while (n > 1) {
+        if ((n & (n - 1)) == 0) {
+           
+            n = n / 2;
+        } else {
+           
+            long power = 1;
+            while (power * 2 < n) {
+                power = power * 2;
+            }
+            n = n - power;
+        }
+        turns = turns + 1;
+    }
+
+    if (turns % 2 == 1) {
+        strcpy(winner, "Louise");
+    } else {
+        strcpy(winner, "Richard");
+    }
+
+    return winner;
+}

@@ -1,0 +1,43 @@
+int* dynamicArray(int n, int queries_rows, int queries_columns, int** queries, int* result_count) {
+    int *arr = malloc(n * sizeof(int));
+    int *sizes = calloc(n, sizeof(int));      
+    int *capacities = calloc(n, sizeof(int)); 
+
+    int lastAnswer = 0;
+    int *answers = malloc(queries_rows * sizeof(int)); 
+    int answer_idx = 0;
+
+    for (int i = 0; i < n; ++i) {
+        arr[i] = NULL;
+        sizes[i] = 0;
+        capacities[i] = 0;
+    }
+
+    for (int i = 0; i < queries_rows; ++i) {
+        int qtype = queries[i][0];
+        int x = queries[i][1];
+        int y = queries[i][2];
+        int idx = (x ^ lastAnswer) % n;
+
+        if (qtype == 1) {
+            
+            if (sizes[idx] == capacities[idx]) {
+                capacities[idx] = (capacities[idx] == 0) ? 2 : (capacities[idx] * 2);
+                arr[idx] = realloc(arr[idx], capacities[idx] * sizeof(int));
+            }
+            arr[idx][sizes[idx]++] = y;
+        }
+        else if (qtype == 2) {
+            lastAnswer = arr[idx][y % sizes[idx]];
+            answers[answer_idx++] = lastAnswer;
+        }
+    }
+    
+    for (int i = 0; i < n; ++i) free(arr[i]);
+    free(arr);
+    free(sizes);
+    free(capacities);
+
+    *result_count = answer_idx;
+    return answers;
+}

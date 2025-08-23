@@ -1,0 +1,16 @@
+int sockMerchant(int n, int ar_count, int* ar) {
+    int pairs = 0;
+
+    // Assume sock colors are <= 100 (HackerRank constraint)
+    int colorCount[101] = {0};
+
+    for (int i = 0; i < ar_count; i++) {
+        colorCount[ar[i]]++;
+    }
+
+    for (int i = 0; i <= 100; i++) {
+        pairs += colorCount[i] / 2;
+    }
+
+    return pairs;
+}
